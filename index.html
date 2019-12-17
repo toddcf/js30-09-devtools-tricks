@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Console Tricks!</title>
+</head>
+<body>
+
+  <p onClick="makeGreen()">×BREAK×DOWN×</p>
+
+  <script>
+    const dogs = [{ name: 'Snickers', age: 2 }, { name: 'Hugo', age: 8 }];
+
+    function makeGreen() {
+      const p = document.querySelector('p');
+      p.style.color = '#BADA55';
+      p.style.fontSize = '50px';
+    }
+
+    // Regular
+    console.log('Regular');
+
+    // Interpolated
+    console.log('I am a %s string', '💩');
+
+    // Styled
+    console.log('%c I am some great text.', 'font-size:50px; background-color:red; text-shadow: 10px 10px 0 blue;');
+
+    // warning!
+    console.warn('Oh, no.');
+
+    // Error :|
+    console.error('Test error.');
+
+    // Info
+    console.info('Crocodiles eat 3-4 people per year.');
+
+    // Testing
+    console.assert( 1 === 1, 'That is wrong.' ); // Only fires if something is wrong.
+
+    const p = document.querySelector('p');
+    console.assert(p.classList.contains('ouch'), 'That is wrong.');
+
+    // clearing
+    // console.clear();
+
+    // Viewing DOM Elements
+    console.log(p);
+    console.dir(p); // Gives you a dropdown with all the element's methods, etc.
+
+    // Grouping together
+      // Expanded version (console.group):
+      dogs.forEach( dog => {
+        console.group(`${dog.name}`); // Pass in name to start group.
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old, which is ${dog.age * 7} in dog years.`);
+        console.groupEnd(`${dog.name}`); // Pass in the same group name to end.
+      });
+
+      // Collapsed version (console.groupCollapsed):
+      dogs.forEach( dog => {
+        console.groupCollapsed(`${dog.name}`); // Pass in name to start group.
+        console.log(`This is ${dog.name}`);
+        console.log(`${dog.name} is ${dog.age} years old, which is ${dog.age * 7} in dog years.`);
+        console.groupEnd(`${dog.name}`); // Pass in the same group name to end.
+      });
+
+    // counting
+    console.count('Wes'); // Counts the number of times you use whatever's inside the parentheses.
+    console.count('Wes');
+    console.count('Steve');
+    console.count('Wes');
+    console.count('Wes');
+
+    // timing
+    // (Start a timer to see how long something takes)
+    console.time('Fetching data'); // Give it a name
+    fetch('https://api.github.com/users/wesbos')
+      .then( data => data.json())
+      .then( data => {
+        console.timeEnd('Fetching data'); // When you're done, pass the same name into timeEnd.
+        console.log(data);
+    });
+
+    // table
+    // (Display an array as a table -- as long as each item has the same properties.)
+    console.table(dogs);
+
+  </script>
+</body>
+</html>
